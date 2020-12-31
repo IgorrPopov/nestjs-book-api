@@ -21,11 +21,19 @@ describe('BookRepository', () => {
   });
 
   describe('createBook', () => {
-    it('Successfully create the book', () => {
-      let save = jest.fn();
-      bookRepository.create = jest.fn().mockReturnValue({ save });
+    let save;
 
-      expect(bookRepository.createBook).not.toHaveBeenCalled();
+    beforeEach(() => {
+      save = jest.fn();
+      bookRepository.create = jest.fn().mockReturnValue({ save });
+    });
+
+    it('Successfully create the book', () => {
+      save.mockResolvedValue(undefined);
+
+      expect(
+        bookRepository.createBook(mockCreateBookDto),
+      ).resolves.not.toThrow();
     });
   });
 });

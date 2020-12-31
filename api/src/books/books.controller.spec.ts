@@ -1,18 +1,27 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { BooksController } from './books.controller';
+import { BooksService } from './books.service';
 
-describe('Books2Controller', () => {
-  let controller: BooksController;
+describe('BooksController', () => {
+  let booksController: BooksController;
+  let booksService: BooksService;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    const moduleRef = await Test.createTestingModule({
       controllers: [BooksController],
+      providers: [BooksService],
     }).compile();
 
-    controller = module.get<BooksController>(BooksController);
+    booksService = moduleRef.get<BooksService>(BooksService);
+    booksController = moduleRef.get<BooksController>(BooksController);
   });
 
-  // it('should be defined', () => {
-  //   expect(controller).toBeDefined();
-  // });
+  describe('getBooks', () => {
+    it('should return an array of getBooks', async () => {
+      const result = ['test'];
+      jest.spyOn(BooksService, 'getBooks').mockImplementation(() => result);
+
+      expect(await BooksController.getBooks()).toBe(result);
+    });
+  });
 });

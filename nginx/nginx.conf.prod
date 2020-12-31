@@ -1,0 +1,9 @@
+server {
+  listen 80;
+
+  server_name open-book-api.com;
+
+  location /api {
+    proxy_pass http://api:3000;
+  }
+}

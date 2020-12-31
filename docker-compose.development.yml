@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  api:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./api
+    command: npm run start:dev
+
+  nginx:
+    volumes:
+      - ./nginx/nginx.conf.dev:/etc/nginx/conf.d/nginx.conf
