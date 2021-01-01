@@ -4,22 +4,24 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class Book extends BaseEntity {
   @PrimaryGeneratedColumn()
-  @ApiProperty()
+  @ApiProperty({ example: 23 })
   id: number;
 
   @Column()
-  @ApiProperty()
+  @ApiProperty({ example: 'Iliad' })
   title: string;
 
   @Column()
-  @ApiProperty()
+  @ApiProperty({ example: 'Homer' })
   author: string;
 
   @Column()
-  @ApiProperty()
+  @ApiProperty({ example: -1180 })
   publishedYear: number;
 
   @Column()
-  @ApiProperty()
+  @ApiProperty({
+    example: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  })
   text: string;
 }

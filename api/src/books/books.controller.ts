@@ -1,10 +1,22 @@
-import { Query, ValidationPipe } from '@nestjs/common';
+import {
+  InternalServerErrorException,
+  Query,
+  ValidationPipe,
+} from '@nestjs/common';
 import { Body, Controller, Get, Post, UsePipes } from '@nestjs/common';
-import { ApiBody, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+  ApiParamOptions,
+  ApiInternalServerErrorResponse,
+} from '@nestjs/swagger';
 import { Book } from './book.entity';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { GetBooksFilterDto } from './dto/get-books-filter.dto';
+import { DEFAULT_BOOK_LIMIT } from '../config/book-api.config';
 
 @ApiTags('books')
 @Controller('api/books')
@@ -12,15 +24,10 @@ export class BooksController {
   constructor(private booksService: BooksService) {}
 
   @Get()
-  @ApiParam({
-    type: GetBooksFilterDto,
-    name: 'filter query',
-    description: 'You can set limit (10 or less) start position.',
-  })
   @ApiResponse({
     status: 200,
-    description:
-      "Returns an array of objects with books and max length of 10. You can add 'start=20' and 'limit=3' query parameters but limit must be 10 or less",
+    description: `Returns an array of objects with books and max length of ${DEFAULT_BOOK_LIMIT}. 
+      You can add 'start=20' and 'limit=3' optional query parameters but limit must be ${DEFAULT_BOOK_LIMIT} or less.`,
     type: [Book],
   })
   getBooks(
@@ -34,8 +41,8 @@ export class BooksController {
   @ApiBody({ type: CreateBookDto })
   @ApiResponse({
     status: 201,
-    description:
-      'Add one book instance and after it was created (added to the DB) returns it as an object (JSON).',
+    description: `Add one book instance and after it was created (added to the DB) returns it as an object (JSON) 
+      (if you want to add a book that was written B.C. add minus sign to the year).`,
     type: Book,
   })
   createBook(@Body() createBookDto: CreateBookDto): Promise<Book> {

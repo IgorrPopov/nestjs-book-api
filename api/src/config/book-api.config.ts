@@ -1,3 +1,3 @@
-const DEFAULT_BOOK_LIMIT = 10;
+const DEFAULT_BOOK_LIMIT = 20;
 
 export { DEFAULT_BOOK_LIMIT };

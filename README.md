@@ -1,7 +1,6 @@
-- start development command: "docker-compose -f docker-compose.yml -f docker-compose.development.yml up --build"
-
-- start tests command: "docker-compose -f docker-compose.yml -f docker-compose.test.yml up --build"
-
-- start production command: "docker-compose up --build"
+- start development mode: "npm run dev"
+- start production mode: "npm run prod"
+- start test mode: "npm run test --wathc"
+- start e2e test mode: "npm run test:e2e --watch"
 
 - swagger docs at "/api" path
