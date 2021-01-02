@@ -5,6 +5,8 @@ const POSTGRES_USER = process.env.POSTGRES_USER;
 const POSTGRES_DB_NAME = process.env.POSTGRES_DB_NAME;
 const POSTGRES_PORT = parseInt(process.env.POSTGRES_PORT);
 const POSTGRES_HOST = process.env.POSTGRES_HOST;
+const POSTGRES_SYNCHRONIZE =
+  process.env.POSTGRES_SYNCHRONIZE === 'true' ? true : false;
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'postgres',
@@ -14,16 +16,5 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   password: POSTGRES_PASSWORD,
   database: POSTGRES_DB_NAME,
   entities: [__dirname + '/../**/*.entity.js'],
-  synchronize: true,
+  synchronize: POSTGRES_SYNCHRONIZE,
 };
-
-// export const typeOrmConfig: TypeOrmModuleOptions = {
-//   type: 'postgres',
-//   host: 'localhost',
-//   port: 5432,
-//   username: 'postgres',
-//   password: '111555fox',
-//   database: 'api_db',
-//   entities: [__dirname + '/../**/*.entity.js'],
-//   synchronize: true,
-// };

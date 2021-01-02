@@ -6,6 +6,8 @@ services:
       dockerfile: Dockerfile.dev
       context: ./api
     command: npm run start:dev
+    environment:
+      - POSTGRES_SYNCHRONIZE=true
 
   nginx:
     volumes:

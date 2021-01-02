@@ -2,12 +2,12 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsInt,
   IsNotEmpty,
-  IsNumberString,
   Max,
   MaxLength,
   Min,
   MinLength,
 } from 'class-validator';
+import { MAX_BOOK_TEXT_LENGHT } from '../../config/book-api.config';
 
 export class CreateBookDto {
   @IsNotEmpty()
@@ -23,9 +23,6 @@ export class CreateBookDto {
   author: string;
 
   @IsNotEmpty()
-  // @IsNumberString()
-  // @MinLength(4)
-  // @MaxLength(4)
   @IsInt()
   @Max(new Date().getFullYear())
   @Min(-5000)
@@ -34,7 +31,7 @@ export class CreateBookDto {
 
   @IsNotEmpty()
   @MinLength(2)
-  @MaxLength(10000000)
+  @MaxLength(MAX_BOOK_TEXT_LENGHT)
   @ApiProperty({
     example: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   })

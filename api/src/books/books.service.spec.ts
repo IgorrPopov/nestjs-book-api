@@ -56,7 +56,7 @@ describe('BooksService', () => {
   });
 
   describe('createBook', () => {
-    it('Calls bookRepository.createBook() and returns the result', async () => {
+    it('Add the book to the repository', async () => {
       bookRepository.createBook.mockResolvedValue(mockValue);
 
       expect(bookRepository.createBook).not.toHaveBeenCalled();

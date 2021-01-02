@@ -55,7 +55,7 @@ describe('BooksController', () => {
   });
 
   describe('createBook', () => {
-    it('Calls booksService.createBook() and returns the result', async () => {
+    it('Passes the book to the service', async () => {
       booksService.createBook.mockReturnValue(mockValue);
 
       expect(booksService.createBook).not.toHaveBeenCalled();

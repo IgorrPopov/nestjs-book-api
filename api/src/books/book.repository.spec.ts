@@ -24,6 +24,10 @@ describe('BookRepository', () => {
     bookRepository = module.get<BookRepository>(BookRepository);
   });
 
+  it('Should be defined', () => {
+    expect(bookRepository).toBeDefined();
+  });
+
   describe('createBook', () => {
     let save: any;
 
@@ -75,8 +79,6 @@ describe('BookRepository', () => {
       expect(bookRepository.getBooks(mockFilterDto)).rejects.toThrow(
         InternalServerErrorException,
       );
-      expect(skip).toHaveBeenCalledWith(mockFilterDto.start);
-      expect(take).toHaveBeenCalledWith(mockFilterDto.limit);
     });
   });
 });

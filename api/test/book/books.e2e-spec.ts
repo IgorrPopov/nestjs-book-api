@@ -26,7 +26,7 @@ describe('[Feature] Books - /api/books', () => {
     text: '',
   };
 
-  const testBookArray: CreateBookDto[] = new Array(DEFAULT_BOOK_LIMIT).fill(
+  const testBooksArray: CreateBookDto[] = new Array(DEFAULT_BOOK_LIMIT).fill(
     testBook,
   );
 
@@ -39,8 +39,8 @@ describe('[Feature] Books - /api/books', () => {
     await app.init();
   });
 
-  testBookArray.forEach((book, index) => {
-    it(`Create a book and return it [POST /api/books] iteration #: ${
+  testBooksArray.forEach((book, index) => {
+    it(`Creates a book and return it [POST /api/books] iteration #: ${
       index + 1
     }`, () => {
       return request(app.getHttpServer())
@@ -92,11 +92,11 @@ describe('[Feature] Books - /api/books', () => {
       .send()
       .expect(HttpStatus.OK)
       .then(({ body }) => {
-        const expectedBooksArray = testBookArray.map((book) => {
+        const expectedBooksArray = testBooksArray.map((book) => {
           return jasmine.objectContaining({ ...book });
         });
 
-        expect(expectedBooksArray.length).toBe(testBookArray.length);
+        expect(expectedBooksArray.length).toBe(testBooksArray.length);
 
         expect(body).toEqual(expectedBooksArray);
       });
