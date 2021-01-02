@@ -8,17 +8,20 @@ const mockBookRepository = () => ({
   getBooks: jest.fn(),
   createBook: jest.fn(),
 });
+
 const mockValue: string = 'Test value';
+
 const mockCreateBookDto: CreateBookDto = {
   title: 'Test title',
   author: 'Test author',
   publishedYear: 2020,
   text: 'Test text',
 };
+
 const mockFilterDto: GetBooksFilterDto = { limit: 10, start: 30 };
 
 describe('BooksService', () => {
-  let booksService: any;
+  let booksService: BooksService;
   let bookRepository: any;
 
   // Init BooksServise & BookRepository
@@ -35,6 +38,10 @@ describe('BooksService', () => {
   });
 
   //   Tests
+  it('Should be defined', () => {
+    expect(booksService).toBeDefined();
+  });
+
   describe('getBooks', () => {
     it('Gets books from the repository', async () => {
       bookRepository.getBooks.mockResolvedValue(mockValue);

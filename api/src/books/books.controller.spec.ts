@@ -1,27 +1,69 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 import { BooksController } from './books.controller';
 import { BooksService } from './books.service';
+import { CreateBookDto } from './dto/create-book.dto';
+import { GetBooksFilterDto } from './dto/get-books-filter.dto';
+
+const mockBookService = () => ({
+  getBooks: jest.fn(),
+  createBook: jest.fn(),
+});
+
+const mockValue: string = 'Test value';
+
+const mockCreateBookDto: CreateBookDto = {
+  title: 'Test title',
+  author: 'Test author',
+  publishedYear: 2020,
+  text: 'Test text',
+};
+
+const mockFilterDto: GetBooksFilterDto = { limit: 10, start: 30 };
 
 describe('BooksController', () => {
+  let booksService: any;
   let booksController: BooksController;
-  let booksService: BooksService;
 
   beforeEach(async () => {
-    const moduleRef = await Test.createTestingModule({
-      controllers: [BooksController],
-      providers: [BooksService],
+    const module = await Test.createTestingModule({
+      providers: [
+        BooksController,
+        { provide: BooksService, useFactory: mockBookService },
+      ],
     }).compile();
 
-    booksService = moduleRef.get<BooksService>(BooksService);
-    booksController = moduleRef.get<BooksController>(BooksController);
+    booksService = module.get<BooksService>(BooksService);
+    booksController = module.get<BooksController>(BooksController);
+  });
+
+  it('Should be defined', () => {
+    expect(booksController).toBeDefined();
   });
 
   describe('getBooks', () => {
-    it('should return an array of getBooks', async () => {
-      const result = ['test'];
-      jest.spyOn(BooksService, 'getBooks').mockImplementation(() => result);
+    it('Gets books from the service', async () => {
+      booksService.getBooks.mockReturnValue(mockValue);
 
-      expect(await BooksController.getBooks()).toBe(result);
+      expect(booksService.getBooks).not.toHaveBeenCalled();
+
+      const result = booksController.getBooks(mockFilterDto);
+
+      expect(booksService.getBooks).toHaveBeenCalledWith(mockFilterDto);
+
+      expect(result).toEqual(mockValue);
+    });
+  });
+
+  describe('createBook', () => {
+    it('Calls booksService.createBook() and returns the result', async () => {
+      booksService.createBook.mockReturnValue(mockValue);
+
+      expect(booksService.createBook).not.toHaveBeenCalled();
+
+      const result = booksController.createBook(mockCreateBookDto);
+
+      expect(booksService.createBook).toHaveBeenCalledWith(mockCreateBookDto);
+      expect(result).toEqual(mockValue);
     });
   });
 });

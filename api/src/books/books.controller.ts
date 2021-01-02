@@ -1,17 +1,6 @@
-import {
-  InternalServerErrorException,
-  Query,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Query, ValidationPipe } from '@nestjs/common';
 import { Body, Controller, Get, Post, UsePipes } from '@nestjs/common';
-import {
-  ApiBody,
-  ApiParam,
-  ApiResponse,
-  ApiTags,
-  ApiParamOptions,
-  ApiInternalServerErrorResponse,
-} from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Book } from './book.entity';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -41,8 +30,9 @@ export class BooksController {
   @ApiBody({ type: CreateBookDto })
   @ApiResponse({
     status: 201,
-    description: `Add one book instance and after it was created (added to the DB) returns it as an object (JSON) 
-      (if you want to add a book that was written B.C. add minus sign to the year).`,
+    description: `Add one book instance and after it was created (added to the DB) 
+    returns it as an object (JSON) (if you want to add a book that was written B.C. 
+    add minus sign to the year).`,
     type: Book,
   })
   createBook(@Body() createBookDto: CreateBookDto): Promise<Book> {

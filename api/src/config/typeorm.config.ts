@@ -6,24 +6,24 @@ const POSTGRES_DB_NAME = process.env.POSTGRES_DB_NAME;
 const POSTGRES_PORT = parseInt(process.env.POSTGRES_PORT);
 const POSTGRES_HOST = process.env.POSTGRES_HOST;
 
-// export const typeOrmConfig: TypeOrmModuleOptions = {
-//   type: 'postgres',
-//   host: POSTGRES_HOST,
-//   port: POSTGRES_PORT,
-//   username: POSTGRES_USER,
-//   password: POSTGRES_PASSWORD,
-//   database: POSTGRES_DB_NAME,
-//   entities: [__dirname + '/../**/*.entity.js'],
-//   synchronize: true,
-// };
-
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  username: 'postgres',
-  password: '111555fox',
-  database: 'api_db',
+  host: POSTGRES_HOST,
+  port: POSTGRES_PORT,
+  username: POSTGRES_USER,
+  password: POSTGRES_PASSWORD,
+  database: POSTGRES_DB_NAME,
   entities: [__dirname + '/../**/*.entity.js'],
   synchronize: true,
 };
+
+// export const typeOrmConfig: TypeOrmModuleOptions = {
+//   type: 'postgres',
+//   host: 'localhost',
+//   port: 5432,
+//   username: 'postgres',
+//   password: '111555fox',
+//   database: 'api_db',
+//   entities: [__dirname + '/../**/*.entity.js'],
+//   synchronize: true,
+// };

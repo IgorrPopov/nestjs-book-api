@@ -11,8 +11,10 @@ export class BookRepository extends Repository<Book> {
     let { limit = DEFAULT_BOOK_LIMIT, start = 0 } = filterDto;
 
     if (typeof limit === 'string') limit = parseInt(limit);
-    if (limit > DEFAULT_BOOK_LIMIT) limit = DEFAULT_BOOK_LIMIT;
+    if (limit > DEFAULT_BOOK_LIMIT || limit <= 0) limit = DEFAULT_BOOK_LIMIT;
     if (typeof start === 'string') start = parseInt(start);
+
+    if (start < 0) start = 0;
 
     const query = this.createQueryBuilder('book');
 

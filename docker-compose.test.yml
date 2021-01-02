@@ -3,10 +3,7 @@ version: '3'
 services:
   api:
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
       context: ./api
-    command: npm run test --watch
-
-  nginx:
-    volumes:
-      - ./nginx/nginx.conf.dev:/etc/nginx/conf.d/nginx.conf
+    container_name: book-api
+    command: npm run test

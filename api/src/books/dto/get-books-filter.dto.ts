@@ -1,9 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumberString, IsOptional, MaxLength } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumberString,
+  IsOptional,
+  MaxLength,
+} from 'class-validator';
 import { DEFAULT_BOOK_LIMIT } from '../../config/book-api.config';
 
 export class GetBooksFilterDto {
   @IsOptional()
+  @IsNotEmpty()
   @MaxLength(3)
   @IsNumberString()
   @ApiProperty({
@@ -16,7 +22,8 @@ export class GetBooksFilterDto {
   limit: number;
 
   @IsOptional()
-  @MaxLength(3)
+  @IsNotEmpty()
+  @MaxLength(50)
   @IsNumberString()
   @ApiProperty({
     name: 'start',
