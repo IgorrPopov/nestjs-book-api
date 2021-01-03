@@ -9,7 +9,7 @@ const mockBookRepository = () => ({
   createBook: jest.fn(),
 });
 
-const mockValue: string = 'Test value';
+const mockValue = 'Test value';
 
 const mockCreateBookDto: CreateBookDto = {
   title: 'Test title',

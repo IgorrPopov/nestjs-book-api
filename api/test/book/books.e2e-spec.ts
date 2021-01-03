@@ -62,7 +62,7 @@ describe('[Feature] Books - /api/books', () => {
       .expect(HttpStatus.BAD_REQUEST);
   });
 
-  Object.entries(testBook).forEach(([key, value]) => {
+  Object.entries(testBook).forEach(([key]) => {
     it(`Returns 400 bad request [POST /api/books] (invalid "${key}" property)`, () => {
       const corruptedTestBook = Object.assign({}, testBook);
       corruptedTestBook[key] = InvalidTestBook[key];
@@ -74,7 +74,7 @@ describe('[Feature] Books - /api/books', () => {
     });
   });
 
-  Object.entries(testBook).forEach(([key, value]) => {
+  Object.entries(testBook).forEach(([key]) => {
     it(`Returns 400 bad request [POST /api/books] (without "${key}" property)`, () => {
       const corruptedTestBook = Object.assign({}, testBook);
       delete corruptedTestBook[key];
